@@ -12,7 +12,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await sequelize.drop();
-  await sequelize.close();
+  // await sequelize.close();
 });
 
 const mockUser = {
