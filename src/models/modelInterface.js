@@ -81,7 +81,7 @@ class modelInterface {
       console.log(json);
       let user = await this.model.findOne({where: json});
       console.log(`modelInterface.user: ${user}`);
-      return user === null ? undefined : user;
+      return user === null || user === undefined ? undefined : user;
     } catch (err) {
       console.log(err.toString());
       return undefined;

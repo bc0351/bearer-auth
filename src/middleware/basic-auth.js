@@ -22,7 +22,7 @@ async function basicAuth(req, res, next) {
     console.log('username:', username);
     console.log('password:', password);
     let user = userInterface.findOne({ username: username });
-    if (user) {
+    if (user !== null) {
       let validUser = await bcrypt.compare(password, user.password);
       console.log(validUser);
       if (validUser) {
@@ -47,7 +47,6 @@ async function basicEncrypt(req, res, next) {
   try {
     const saltRounds = 5;
     console.log(req.body);
-    if (!req.body) throw new Error('Missing username and password.')
     let { username, password } = req.body;
     let salt = await bcrypt.genSalt(saltRounds);
     let encryptedPassword = await bcrypt.hash(password, salt);

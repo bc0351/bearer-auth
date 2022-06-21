@@ -9,7 +9,7 @@ const router = express.Router();
 // Two ways to test this route with httpie
 // echo '{"username":"john","password":"foo"}' | http post :3000/signup
 // http post :3000/signup username=john password=foo
-router.post('/signup', basicAuth, async (req, res) => {
+router.post('/signup', basicAuth, async (req, res, next) => {
   try {
     if (res.status > 299) throw new Error('Failed to sign up new user.');
     res.status(201).send(user);
@@ -18,7 +18,7 @@ router.post('/signup', basicAuth, async (req, res) => {
   }
 })
 
-router.post('/signin', basicAuth, async (req, res) => {
+router.post('/signin', basicAuth, async (req, res, next) => {
   try {
     let user = req.user;
     if (res.status !== 200) throw new Error('Failed to sign in.');
