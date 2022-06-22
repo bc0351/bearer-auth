@@ -1,0 +1,74 @@
+{
+<<<<<<< HEAD
+  "name": "bearer-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bc0351/bearer-auth.git"
+=======
+  "name": "server",
+  "version": "1.0.0",
+  "description": "**Authentication System Phase 1:** Deploy an Express server that implements Basic Authentication, with signup and signin capabilities, using a Postgres database for storage.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "watch": "nodemon app.js",
+    "init:config": "sequelize init:config",
+    "db:create": "sequelize db:create",
+    "test": "NODE_ENV=test jest --verbose --coverage",
+    "test-watch": "NODE_ENV=test jest --watchAll --verbose --coverage"
+  },
+  "jest": {
+    "testEnvironment": "node"
+>>>>>>> c29939605bb1bc7eb6042b3df910583a5d769a21
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+<<<<<<< HEAD
+  "bugs": {
+    "url": "https://github.com/bc0351/bearer-auth/issues"
+  },
+  "homepage": "https://github.com/bc0351/bearer-auth#readme",
+=======
+>>>>>>> c29939605bb1bc7eb6042b3df910583a5d769a21
+  "dependencies": {
+    "base-64": "^1.0.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+<<<<<<< HEAD
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jest": "^28.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
+=======
+    "dotenv": "^8.6.0",
+    "express": "^4.18.1",
+    "jest": "^26.6.3",
+    "pg": "^8.7.3",
+    "requests": "^0.3.0",
+>>>>>>> c29939605bb1bc7eb6042b3df910583a5d769a21
+    "sequelize": "^6.21.0",
+    "sequelize-cli": "^6.4.1",
+    "sqlite3": "^5.0.8",
+    "supertest": "^6.2.3"
+<<<<<<< HEAD
+  }
+=======
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bc0351/basic-auth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bc0351/basic-auth/issues"
+  },
+  "homepage": "https://github.com/bc0351/basic-auth#readme"
+>>>>>>> c29939605bb1bc7eb6042b3df910583a5d769a21
+}
