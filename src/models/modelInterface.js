@@ -7,12 +7,8 @@ class modelInterface {
 
   async create(json) {
     try {
-      //query to the database
-      // this will be a row in a database
-      console.log(json);
-      let instance = await this.model.create(json);
-      console.log(instance);
-      return instance;
+      let result = await this.model.create(json);
+      return result;
     } catch (err) {
       console.error(err);
       return err;
@@ -22,10 +18,7 @@ class modelInterface {
 
   async readOne(id) {
     try {
-      // if you run into type issues 
-      // let idNum = parseInt(id);
-      let oneInstance = await this.model.findOne({where: { id }});
-      return oneInstance;
+      return await this.model.findOne({where: { id }});
     } catch(err){
       console.error(err);
       return err;
@@ -35,29 +28,26 @@ class modelInterface {
 
   async readAll() {
     try {
-      let allInstances = await this.model.findAll();
-      return allInstances;
+      return await this.model.findAll();
     } catch(err){
       console.error(err);
       return err;
     }
   }
 
-  // not required in lab, but COOOOOOL
   async readWithRelations(id, options) {
     try {
       let query = {where: { id }, ...options };
-      let result = await this.model.findOne(query);
-      return result;
+      return await this.model.findOne(query);
     } catch(err){
       console.error(err);
       return err;
     }
   }
 
-  update(id) {
+  async update(id, json) {
     try {
-      // do the thing
+      return await this.model.update(json, {where: { id }});
     } catch(err){
       console.error(err);
       return err;
@@ -67,7 +57,6 @@ class modelInterface {
   async delete(id) {
     try {
       let deletedInstance = await this.model.findOne({where: { id }});
-
       await this.model.destroy({where: { id }});
       return deletedInstance;
     } catch(err){
@@ -78,10 +67,8 @@ class modelInterface {
 
   async findOne(json) {
     try {
-      console.log(json);
       let user = await this.model.findOne({where: json});
-      console.log(`modelInterface.user: ${user}`);
-      return user === null ? undefined : user;
+      return user;
     } catch (err) {
       console.log(err.toString());
       return undefined;

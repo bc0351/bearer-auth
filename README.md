@@ -98,6 +98,7 @@ We have deployed a web application that's designed to test your API. This is a g
   - In the form at the top of the page, enter the URL to your Authentication Server
   - If your lab is working, this app will show your user record after you login
 
-## Assignment Submission Instructions
+## Resources
 
-Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../../reference/submission-instructions/labs/node-apps.md) for the complete lab submission process and expectations
+  * Github: [basic-auth repo](https://github.com/bc0351/basic-auth/pull/1)
+  * Heroku [ben-basic-auth-app](https://ben-basic-auth-app.herokuapp.com)

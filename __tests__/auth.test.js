@@ -1,9 +1,9 @@
 'use strict';
-
 const { server } = require('../src/server.js');
-const {sequelize} = require('../src/models/index');
+const { sequelize } = require('../src/models/index');
 const base64 = require('base-64');
 const supertest = require('supertest');
+const { expect } = require('@jest/globals');
 const mockRequest = supertest(server);
 
 beforeAll(async () => {
@@ -11,8 +11,8 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await sequelize.drop();
-  // await sequelize.close();
+  // await sequelize.drop();
+  await sequelize.close();
 });
 
 const mockUser = {
@@ -20,36 +20,45 @@ const mockUser = {
   password: 'password'
 };
 
-let mockAuthString;
-let mockCredentials;
+let mockAuthString = base64.encode(`${mockUser.username}:${mockUser.password}`);
 
 describe('Auth Tests', () => {
-  it('1. POST to /signup to create a new user', async () => {
-    // create mockResponse
-    mockAuthString = base64.encode(`${mockUser.username}:${mockUser.password}`);
+  test('1. POST to /signup to create a new user', async () => {
 
     let response = await mockRequest
       .post('/signup')
       .set('Authorization', `Bearer ${mockAuthString}`);
-
-    let responseBody = base64.decode(response.body);
-    console.log(`responseBody: ${responseBody}`);
-    mockCredentials = {username, password} = responseBody;
-    console.log(`mockCredentials: ${mockCredentials}`);
-    mockAuthString = `${mockCredentials.username}:${mockCredentials.password}`;
-    console.log(`mockAuthString: ${mockAuthString}`);
-
-    console.log('Response Body', response.body);
     expect(response.status).toEqual(201);
   });
 
   test('2. POST to /signin to login as a user (use basic auth)', async () => {
-    // create mockResponse
+
     let response = await mockRequest
       .post('/signin')
-      .set('Authorization', `Bearer ${ base64.encode(mockAuthString) }`)
-      .send(mockCredentials);
-      expect(response.status).toEqual(201);
-    console.log('Response Body', response.body);
+      .set('Authorization', `Bearer ${mockAuthString}`)
+    expect(response.status).toEqual(200);
+  });
+
+  test('3. POST to /signin with a basic header', async () => {
+
+    let response = await mockRequest
+      .post('/signin')
+    expect(response.status).toEqual(401);
+  });
+
+  test('4. POST to /signin with a basic header', async () => {
+
+    let response = await mockRequest
+      .post('/signin')
+    expect(response.status).toEqual(401);
+  });
+
+  test('5. POST to /signin with incorrect password', async () => {
+    let incorrectUser = { username: 'ben', password: 'incorrect' };
+    let encryptedAuthString = base64.encode(`${incorrectUser.username}:${incorrectUser.password}`);
+    let response = await mockRequest
+      .post('/signin')
+      .set('Authorization', `Bearer ${encryptedAuthString}`);
+    expect(response.status).toEqual(500);
   });
 });
