@@ -104,7 +104,9 @@ Implement any 2 of these security measures, or any other measure that you can th
 
 #### **Testing**
 
-The tests are pre-written for you. Make sure they pass!
+TO DO: debug testing. Sign-in test is failing due to open handles.
+
+![Lab-07 Test Suite](./__tests__/lab-07-tests.png)
 
 #### **Visual Validation**
 

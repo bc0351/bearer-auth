@@ -1,19 +1,36 @@
-'use script';
+'use strict';
 
-const logger = require('./middleware/logger');
-const authRouter = require('./routes/auth');
-const { sequelize } = require('./models/index');
+// 3rd Party Resources
 const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
+require('dotenv');
+
+// Esoteric Resources
+const errorHandler = require('./error-handlers/500.js');
+const notFound = require('./error-handlers/404.js');
+const authRouter = require('./auth/routes/index.js');
+
+// Prepare the express app
 const app = express();
-const PORT = process.env.PORT || 3002;
+
+// App Level MW
+app.use(cors());
+app.use(morgan('dev'));
 
 app.use(express.json());
-app.use(logger);
 app.use(express.urlencoded({ extended: true }));
+
+const PORT = process.env.PORT || 3001;
+
+// Routes
 app.use(authRouter);
+
+// Catchalls
+app.use(notFound);
+app.use(errorHandler);
 
 module.exports = {
   server: app,
-  sequelize,
-  start: () => app.listen(PORT, console.log('listening on port:', PORT))
-}
+  start: () => app.listen(PORT, () => console.log(`Server Up on ${PORT}`)),
+};
