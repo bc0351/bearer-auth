@@ -1,10 +1,11 @@
 'use strict';
-const { authorize } = require('../middleware/basic-auth');
+const  basicAuth  = require('../middleware/basic-auth');
+const  bearerAuth  = require('../middleware/bearer-auth');
 
 const express = require('express');
 const router = express.Router();
 
-router.post('/signup', authorize, async (req, res) => {
+router.post('/signup', basicAuth, async (req, res) => {
   try {
     res.status(201).send(req.user);
   } catch (err) {
@@ -13,7 +14,7 @@ router.post('/signup', authorize, async (req, res) => {
   }
 })
 
-router.post('/signin', authorize, async (req, res) => {
+router.post('/signin', bearerAuth, async (req, res) => {
   try {
     res.status(200).send(req.user);
   } catch (err) {
@@ -21,4 +22,4 @@ router.post('/signin', authorize, async (req, res) => {
   }
 })
 
-module.exports = router;
+module.exports = router ;
